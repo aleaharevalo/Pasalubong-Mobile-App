@@ -1,16 +1,22 @@
-# pasalubong
 
-A new Flutter project.
+# Pasalubong: Delicacy Finder for Tourists
 
-## Getting Started
+Pasalubong is a mobile application designed to promote and facilitate the discovery of regional delicacies within the Negros Island Region (NIR). By consolidating information from Negros Occidental, Negros Oriental, and Siquijor, the application serves as a digital guide for tourists and locals to locate specific food items and the heritage stores that produce them.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## Key Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+* **Interactive Regional Mapping:** A centralized dashboard featuring a visual representation of the Negros Island Region with interactive geolocation pins for major cities such as Bacolod, Silay, and Dumaguete.
+* **Delicacy Information System** Detailed profiles for each food item, including historical descriptions, price ranges, and high-resolution imagery.
+* **Store Locator** Integration with a backend database to provide users with a list of verified vendors and retail outlets where specific delicacies are available.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+##  Technical Stack
+
+* **Framework:** Flutter (Dart)
+* **Backend:** Supabase (PostgreSQL, Authentication, Storage)
+
+---
+
