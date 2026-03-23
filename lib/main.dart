@@ -1,24 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'views/home_page.dart'; // Ensure this path is correct
+import 'views/get_started_page.dart'; // Import your new page
 
-void main() async {
+Future<void> main() async {
+  // 1. Ensure Flutter bindings are initialized
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 2. Initialize Supabase with your project details
   await Supabase.initialize(
     url: 'https://sjcdcokcwoodlmftgkii.supabase.co',
     anonKey: 'sb_publishable_jFp7OiG-tHtqf9DFK0uXrQ__XfPbw6J',
   );
-  runApp(const PasalubongApp());
+
+  runApp(const MyApp());
 }
 
-class PasalubongApp extends StatelessWidget {
-  const PasalubongApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(), // This should now work without 'const'
+      title: 'Pasalubong',
+      theme: ThemeData(
+        useMaterial3: true,
+        // You can set global font styles here if you like
+      ),
+      // 3. Set the GetStartedPage as the very first screen
+      home: const GetStartedPage(),
     );
   }
 }

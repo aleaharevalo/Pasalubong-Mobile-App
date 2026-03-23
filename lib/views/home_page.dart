@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../services/database_service.dart';
+import '../widgets/main_layout.dart'; 
 import 'city_detail_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,7 +14,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final DatabaseService _dbService = DatabaseService();
 
-  // Logic to fetch city details when a MAP PIN is tapped
   void _handlePinTap(BuildContext context, String cityName) async {
     final cityData = await _dbService.fetchCityByName(cityName);
     if (!mounted) return;
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:Color.fromARGB(255, 200, 80, 80), // Mango Pulse
+                    backgroundColor: const Color.fromARGB(255, 200, 80, 80), 
                     padding: const EdgeInsets.symmetric(vertical: 15),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   ),
@@ -70,19 +70,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          "PASALUBONG",
-          style: GoogleFonts.juliusSansOne(fontWeight: FontWeight.bold, letterSpacing: 4),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        foregroundColor: Colors.black,
-      ),
-      // SingleChildScrollView allows the user to scroll down to the regions
+    return MainLayout(
+      showBackButton: false, 
+      title: "PASALUBONG",
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -90,14 +80,32 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
-                height: 550, // Much longer map card for better visual impact
+                height: 550, 
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF4A4A4A),
+                  color: const Color.fromARGB(255, 0, 0, 0),
                   borderRadius: BorderRadius.circular(35),
                 ),
                 child: Stack(
                   children: [
+                    // NIR Region Header now INSIDE the dark card
+                    Positioned(
+                      top: 30,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: Text(
+                          "THE NIR REGION",
+                          style: GoogleFonts.juliusSansOne(
+                            fontSize: 20, 
+                            fontWeight: FontWeight.bold, 
+                            letterSpacing: 2,
+                            color: Colors.white, // Changed to white
+                          ),
+                        ),
+                      ),
+                    ),
+
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.all(30.0),
@@ -108,7 +116,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     
-                    // Pins - Positioned relative to the tall container
                     Positioned(
                       top: 130,
                       left: MediaQuery.of(context).size.width * 0.35,
@@ -141,48 +148,34 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
 
-            // --- SECTION 2: CENTERED HEADER ---
+            // Province Header
             Text(
-              "THE NIR REGION",
+              "PROVINCES",
               style: GoogleFonts.juliusSansOne(
                 fontSize: 24, 
                 fontWeight: FontWeight.bold, 
-                letterSpacing: 2
+                letterSpacing: 2,
+                color: Colors.black,
               ),
             ),
 
             const SizedBox(height: 20),
 
-            // --- SECTION 3: WIDE PROVINCE CARDS ---
             SizedBox(
-              height: 300, // Taller for the wide aspect ratio
+              height: 300, 
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 children: [
-                  _buildProvinceCard("Negros Occidental", "assets/occidental.jpg"),
-                  _buildProvinceCard("Negros Oriental", "assets/oriental.jpg"),
-                  _buildProvinceCard("Siquijor", "assets/siquijor.jpg"),
+                  _buildProvinceCard("Negros Occidental", "assets/occidental.png"),
+                  _buildProvinceCard("Negros Oriental", "assets/oriental.png"),
+                  _buildProvinceCard("Siquijor", "assets/siquijor.png"),
                 ],
               ),
             ),
-
-            // --- SECTION 4: FULL DESCRIPTION ---
-            Padding(
-              padding: const EdgeInsets.fromLTRB(35, 30, 35, 50),
-              child: Text(
-                "The Negros Island Region (NIR), established as an administrative region in the Philippines by Republic Act No. 12000 in 2024, comprises the provinces of Negros Occidental, Negros Oriental, and Siquijor. It aims to accelerate social and economic development by consolidating administration and regional services.",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.montserrat(
-                  fontSize: 13, 
-                  color: Colors.grey[700], 
-                  height: 1.8,
-                  fontStyle: FontStyle.italic
-                ),
-              ),
-            ),
+            const SizedBox(height: 100), // Space for floating nav bar
           ],
         ),
       ),
@@ -210,10 +203,10 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildProvinceCard(String title, String imagePath) {
     return Container(
-      width: 320, // Wide cinematic frame
+      width: 320, 
       margin: const EdgeInsets.only(right: 18),
       decoration: BoxDecoration(
-        color: const Color(0xFFC4C2BA), // Beige-Gray from your reference
+        color: const Color.fromARGB(255, 0, 0, 0), // Black card
         borderRadius: BorderRadius.circular(30),
       ),
       child: Column(
@@ -221,12 +214,7 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: ClipRRect(
               borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
-              child: Container(
-                width: double.infinity,
-                color: Colors.grey[400],
-                // child: Image.asset(imagePath, fit: BoxFit.cover),
-                child: const Icon(Icons.image, color: Colors.white, size: 50),
-              ),
+              child: Image.asset(imagePath, fit: BoxFit.cover, width: double.infinity),
             ),
           ),
           Padding(
@@ -236,7 +224,8 @@ class _HomePageState extends State<HomePage> {
               style: GoogleFonts.juliusSansOne(
                 fontWeight: FontWeight.bold, 
                 fontSize: 13,
-                letterSpacing: 1.5
+                letterSpacing: 1.5,
+                color: Colors.white, // Changed to white for visibility
               ),
             ),
           ),

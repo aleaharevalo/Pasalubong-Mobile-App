@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../services/database_service.dart';
 import '../models/delicacy_model.dart';
-import '../widgets/main_layout.dart'; // Import your new layout wrapper
-import 'delicacy_info_page.dart';
+import '../views/delicacy_info_page.dart';
 
 class CityDetailPage extends StatelessWidget {
   final String cityName;
@@ -13,9 +12,26 @@ class CityDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // We wrap everything in MainLayout to get the consistent AppBar and Nav
-    return MainLayout(
-      title: cityName.toUpperCase(),
+    return Scaffold(
+      // Matching Home Page Background
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(
+          cityName.toUpperCase(),
+          style: GoogleFonts.juliusSansOne(
+            fontWeight: FontWeight.bold,
+            letterSpacing: 4,
+            color: Colors.black,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black, size: 20),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: FutureBuilder<List<Delicacy>>(
         future: _dbService.fetchDelicaciesByCity(cityName),
         builder: (context, snapshot) {
@@ -36,10 +52,11 @@ class CityDetailPage extends StatelessWidget {
 
           return Column(
             children: [
+              // Subtle Sub-header
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
                 child: Text(
-                  "REGIONAL SPECIALTIES",
+                  "LOCAL SPECIALTIES",
                   style: GoogleFonts.juliusSansOne(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
@@ -79,7 +96,7 @@ class CityDetailPage extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 20),
         height: 110,
         decoration: BoxDecoration(
-          color: const Color(0xFFF8F8F8),
+          color: const Color(0xFFF8F8F8), // Soft off-white/gray
           borderRadius: BorderRadius.circular(25),
           boxShadow: [
             BoxShadow(
@@ -91,8 +108,9 @@ class CityDetailPage extends StatelessWidget {
         ),
         child: Row(
           children: [
+            // Image "Frame"
             Hero(
-              tag: item.name,
+              tag: item.name, // Smooth transition to info page
               child: ClipRRect(
                 borderRadius: const BorderRadius.horizontal(left: Radius.circular(25)),
                 child: Container(
@@ -105,6 +123,7 @@ class CityDetailPage extends StatelessWidget {
                 ),
               ),
             ),
+            // Details Section
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -130,11 +149,11 @@ class CityDetailPage extends StatelessWidget {
                         fontSize: 11,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 6),
                     Text(
                       item.priceRange,
                       style: GoogleFonts.montserrat(
-                        color: Colors.black, 
+                        color: const Color.fromARGB(255, 0, 0, 0), // Mango Pulse as small accent
                         fontWeight: FontWeight.bold,
                         fontSize: 12,
                       ),

@@ -57,6 +57,10 @@ dev_dependencies:
 flutter:
   assets:
       - assets/negros_map.png
+      - assets/philippines_map_white.png
+      - assets/occidental.png
+      - assets/oriental.png
+      - assets/siquijor.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
